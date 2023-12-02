@@ -17,5 +17,6 @@ int main(){
     l.ano = 2000;
 
     infoLivro(l);
+    
     return 0;
 }
