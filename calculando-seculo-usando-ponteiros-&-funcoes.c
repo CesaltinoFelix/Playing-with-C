@@ -12,7 +12,7 @@ int main(){
 
     calcularSeculo(&ano, &mes, &dia, &seculo, &data);
 
-    printf("A data %02d:%02d:%4d , equivale ao seculo : %d",dia, mes, ano, seculo);
+    printf("A data %02d:%02d:%04d , equivale ao seculo : %d",dia, mes, ano, seculo);
 
     return 0;
 }
@@ -25,3 +25,23 @@ void calcularSeculo(int *ano, int *mes, int *dia, int *seculo, int *data){
 
     *seculo = (*ano % 100) == 0 ? (*ano / 100) : (*ano / 100 + 1);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
