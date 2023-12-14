@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-void preencheVector(int vector[5]);
-void printfVector(int vector[5]);
 
 int main()
 {
+void preencheVector(int vector[5]);
+void printfVector(int vector[5]);
 
     int vector[5];
 
