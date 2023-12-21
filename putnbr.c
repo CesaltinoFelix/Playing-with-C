@@ -5,35 +5,26 @@ void putch(char showNumber)
 }
 void putnbr(int number)
 {
-    
-    long  n = (long)number; //permite receber um valor com numeros de bits mmaiores do que um int.
+    short i = 0;
+    char v[10];
+    long long n = number; // permite receber um valor com numeros de bits mmaiores do que um int.
 
     if (n < 0)
     {
         n *= -1;
         putch('-');
     }
-    if (n < 10)
+
+    while (n % 10)
     {
-        putch(n + '0');
+        v[i++] = (n % 10) + 48;
+        n = n / 10;
     }
-    else
+
+    while (i >= 0)
     {
-        int casasDecimais = 1;
-        long num = n;
-
-        while (num >= 10)
-        {
-            num = num / 10;
-            casasDecimais *= 10;
-        }
-
-        while (casasDecimais != 0)
-        {
-            putch((n / casasDecimais) + '0');
-            n %= casasDecimais;
-            casasDecimais /= 10;
-        }
+        write(1, &v[i--], 1);
+        
     }
 }
 int main()
