@@ -1,5 +1,4 @@
 #include <unistd.h>
-#include <stdio.h>
 void putch(char showNumber)
 {
     write(1, &showNumber, 1);
@@ -8,7 +7,6 @@ void putnbr(int number)
 {
     
     long  n = (long)number; //permite receber um valor com numeros de bits mmaiores do que um int.
-    printf("\n%ld\n",n);
 
     if (n < 0)
     {
