@@ -1,4 +1,4 @@
-#include "lib_aritimetica.h"
+#include "aritimetica.h"
 int soma(int a, int b){
 
     return a + b;

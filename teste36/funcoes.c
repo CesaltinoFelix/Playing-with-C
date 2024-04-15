@@ -3,5 +3,5 @@
 void trocarValores(int *a, int *b){
     int aux = *a;
     *a = *b;
-    *b = *a;
+    *b = aux;
 }

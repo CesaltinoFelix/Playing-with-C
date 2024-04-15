@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "lib_aritimetica/aritimetica.c"
+#include "lib_aritimetica/aritimetica.h"
 #include <ctype.h>
 
 int main(){
@@ -33,5 +33,4 @@ int main(){
     printf("\nResultado: %.2f", r);
 
     }
-    return 0;
-}
+
