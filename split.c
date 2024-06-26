@@ -19,29 +19,57 @@ char    **ft_split(char *str)
 {
     int i;
     int j;
+    int k;
     int words;
 
     i = 0;
+    k = 0;
     words = 0;
+
     while(str[i])
     {
-        while(str[i] && str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+        while(str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
             i++;
-        words++;
-        while(str[i] && str[i] != ' ' || str[i] != '\t' || str[i] != '\n')
+        if (str[i])
+            words++;      
+        while(str[i] && (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'))
             i++;
     }
 
-    printf("\n\n\npalavras: %d", words);
+    char **strings = (char **)malloc(sizeof(char *) + 1);
+
+    i = 0;
+     while(str[i])
+    {
+        while(str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+            i++;
+        j = i;         
+        while(str[i] && (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'))
+            i++;
+        if(i > j)
+        {
+            strings[k] = (char *)malloc(sizeof(char) * (i - j) + 1);
+            ft_strncpy(strings[k++], &str[j], i - j);
+        }
+    }
+    strings[k] = NULL;
+    return (strings);
 }
 
 int main(int argc, char **argv)
 {
     if (argc == 2)
     {
-        ft_split(argv[1]);
-    }
-
+        int i;
+        i = 0;
+        char **strings = ft_split(argv[1]);
+        while(strings[i])
+        {
+            printf("\n[%d] - %s", i, strings[i]);
+            i++;
+        }
+    }else
     write(1, "Erro!", 5);
+
     return (0);
 }
