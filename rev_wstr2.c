@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>
 char *ft_strncpy(char *dest, char *src, int n)
 {
     int i;
@@ -36,11 +35,13 @@ char **ft_split(char *str, int *num_words)
     }
 
     char **strings = (char**)malloc(sizeof(char *) * (words + 1));
+    if(!strings)
+        return NULL;
 
     i = 0;
     while(str[i])
     {
-        while(str[i] && (str[i] == ' ' && str[i] == '\t' && str[i] == '\n'))
+        while(str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
             i++;
         j = i;
         while(str[i] && (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'))
@@ -48,14 +49,32 @@ char **ft_split(char *str, int *num_words)
         if(i > j)
         {
             strings[k] = (char *)malloc(sizeof(char) * (i - j)+ 1);
+                if(!strings[k])
+                {
+                    for(int m = 0; m <= k; i++)
+                        free(strings[m]);
+                    free(strings);
+                }
             ft_strncpy(strings[k++], &str[j], i - j);
         }
     }
-    printf("%s", strings[0]);
 
     strings[k] = NULL;
     *num_words = words;
     return (strings);
+}
+
+void ft_free_strings(char **str)
+{
+    int i;
+    i = 0;
+
+    while(str[i])
+    {
+        free(str[i]);
+        i++;
+    }
+    free(str);
 }
 
 void ft_rev_wstr(char *str)
@@ -74,17 +93,18 @@ void ft_rev_wstr(char *str)
             write(1, &strings[num_words][i], 1);
             i++;
         }
-        num_words--;
         if(!(num_words == 0))
             write(1, " ", 1);
+        num_words--;
+        
     }
+    ft_free_strings(strings);
 }
 
 int main(int argc, char **argv)
 {
     if(argc == 2)
         ft_rev_wstr(argv[1]);
-    else
-        write(1, "\n", 1);
+    write(1, "\n", 1);
     return (0);
 }

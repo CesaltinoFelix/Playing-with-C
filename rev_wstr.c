@@ -92,8 +92,6 @@ void ft_rev_wstr(char *str)
 int main(int argc, char **argv)
 {
     if(argc == 2)
-    {
         ft_rev_wstr(argv[1]);
-    }else
         write(1, '\n', 1);
 }
