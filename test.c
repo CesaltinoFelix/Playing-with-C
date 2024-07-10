@@ -9,10 +9,10 @@ void difine_value(int *valores)
 }
 void print_value(int *valores)
 {
-	int i = -1;
+	int i = 0;
 	printf("&valores = %p\n", &valores);
-	while(valores[++i])
-		printf("valores = %p | *value %d", valores, *valores);
+	while(i++ < 5)
+		printf("valores = %p | *value %d", &valores[i], valores[i]);
 }
 
 int main(void)
