@@ -34,7 +34,7 @@ void rev_wstr(char *str)
     }
     
 }
-
+//testando o programa
 int main(int argc, char *argv[])
 {
     if(argc == 2)
