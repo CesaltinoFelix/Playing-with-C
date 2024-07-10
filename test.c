@@ -23,4 +23,5 @@ int main(void)
 		valores[i] = i;
 	}
 	print_value(valores);
+	free(valores);
 }
