@@ -7,9 +7,9 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "externalConsole": true,
-      "cwd": "c:/Users/HP/Documents/Playing with C 1.0",
-      "program": "c:/Users/HP/Documents/Playing with C 1.0/build/Debug/outDebug",
+      "externalConsole": false,
+      "cwd": "/home/cefelix/Playing-with-C",
+      "program": "/home/cefelix/Playing-with-C/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
