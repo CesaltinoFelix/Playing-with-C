@@ -7,12 +7,12 @@ typedef struct _book
     int price;
 } Book;
 
-// typedef struct _studant
-// {
-//     char name[100];
-//     unsigned int age;
-//     Book *fav_book;
-// } Studant;
+typedef struct _student
+{
+    char name[100];
+    unsigned int age;
+    Book *fav_book;
+} Student;
 
 Book *create_book(char *title, unsigned int pages, int price)
 {
@@ -24,6 +24,15 @@ Book *create_book(char *title, unsigned int pages, int price)
     new_book->price = price;
 
     return (new_book);
+}
+
+Student *create_student(char *name, int age, Book *book)
+{
+    (void)name;
+    (void)age;
+    (void)book;
+
+    return (NULL);
 }
 
 void destroy_book(Book **book)
@@ -41,8 +50,9 @@ void print_book(Book *book)
 int main(void)
 {
     Book *book = create_book("A era do gelo", 200, 1999);
-
+    Student *student = create_student("Cesaltino Felix", 24, book);
     
     print_book(book);
+
     destroy_book(&book);    
 }
