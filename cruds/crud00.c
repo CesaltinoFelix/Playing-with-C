@@ -1,21 +1,48 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
-typedef struct _livro
+typedef struct _book
 {
-    char titulo[50];
-    int paginas;
-    double preco;
-} Livro;
+    char title[50];
+    int pages;
+    int price;
+} Book;
 
-void print
+// typedef struct _studant
+// {
+//     char name[100];
+//     unsigned int age;
+//     Book *fav_book;
+// } Studant;
 
+Book *create_book(char *title, unsigned int pages, int price)
+{
+    Book *new_book = (Book *)malloc(sizeof(Book));
+    if(!new_book)
+        return (NULL);
+    ft_strcpy(new_book->title, title);
+    new_book->pages = pages;
+    new_book->price = price;
+
+    return (new_book);
+}
+
+void destroy_book(Book **book)
+{
+    free(*book);
+    *book = NULL;
+}
+
+void print_book(Book *book)
+{
+    ft_printf("BOOK INFORMATION:\n");
+    ft_printf("-----------------------\n");
+    ft_printf("Title: %s\nPages: %d\nPrice %d\n", book->title, book->pages, book->price);
+}
 int main(void)
 {
-    Livro livro = {.titulo = "A era do gelo", .paginas = 200, .preco = 1999.99};
+    Book *book = create_book("A era do gelo", 200, 1999);
 
-    printf("INFORMACOES DO LIVRO:\n");
-    printf("-----------------------\n");
-    printf("Titulo: %s\nPaginas: %d\nPreco: %.2lf\n", livro.titulo, livro.paginas, livro.preco);
-
+    
+    print_book(book);
+    destroy_book(&book);    
 }
