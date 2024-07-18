@@ -1,0 +1,253 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"for",
+				"ft_foreach"
+			],
+			[
+				"ch",
+				"charset"
+			],
+			[
+				"std",
+				"stdio.h\tstandard header"
+			],
+			[
+				"i",
+				"i"
+			],
+			[
+				"co",
+				"copia_str"
+			],
+			[
+				"le",
+				"letter_counter"
+			],
+			[
+				"p",
+				"ft_putchar"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Snippet: ",
+				"Snippet: struct"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/nfs/homes/cefelix/Downloads/BSQ1/srcs/display.c",
+		"/nfs/homes/cefelix/c_list/treinando/makefile/ft_strlen.c",
+		"/nfs/homes/cefelix/c_list/treinando/makefile/Makefile",
+		"/nfs/homes/cefelix/c_list/treinando/makefile/main.c",
+		"/nfs/homes/cefelix/c_list/treinando/makefile/strings.h",
+		"/nfs/homes/cefelix/c_list/treinando/makefile/calculadora.h",
+		"/nfs/homes/cefelix/c_list/treinando/makefile/soma_sub.c",
+		"/nfs/homes/cefelix/Documents/teste_rush-02/ex00/srcs/main.c",
+		"/nfs/homes/cefelix/c_list/c07/ex03/ft_strjoin.c",
+		"/nfs/homes/cefelix/c_list/teste c06/ex03/ft_sort_params.c",
+		"/nfs/homes/cefelix/c_list/c04/ex04/ft_putnbr_base.c",
+		"/nfs/homes/cefelix/c_list/c04/ex05/ft_atoi_base.c",
+		"/nfs/homes/cefelix/c_list/c07/ex04/ft_convert_base.c",
+		"/nfs/homes/cefelix/c_list/c06/ex03/ft_sort_params.c",
+		"/nfs/homes/cefelix/Downloads/Nova pasta/C07/ex03/ft_strjoin_main.c",
+		"/nfs/homes/cefelix/c_list/teste c07/ft_range.c",
+		"/nfs/homes/cefelix/Documents/teste c/teste.c",
+		"/nfs/homes/cefelix/c_list/treinando/c05/ft_iterative_factorial.c",
+		"/nfs/homes/cefelix/c_list/treinando/c05/ft_recursive_factorial.c",
+		"/nfs/homes/cefelix/c_list/c00/ex08/ft_print_combn.c",
+		"/nfs/homes/cefelix/c_list/teste c06/ex00/ft_print_program_name.c",
+		"/nfs/homes/cefelix/c_list/rush01/ex00/funcoes_str01.c",
+		"/nfs/homes/cefelix/c_list/rush01/ex00/validacao.c",
+		"/nfs/homes/cefelix/c_list/rush01/ex00/validacao01.c",
+		"/nfs/homes/cefelix/c_list/rus01_teste/apresentar_solucao.c",
+		"/nfs/homes/cefelix/c_list/rus01_teste/validacao.c",
+		"/nfs/homes/cefelix/c_list/rus01_teste/resolucao_apresentacao.c",
+		"/nfs/homes/cefelix/c_list/rus01_teste/funcoes_str.c",
+		"/nfs/homes/cefelix/c_list/teste rush01/teste.c",
+		"/nfs/homes/cefelix/c_list/c04/ex03/ft_atoi.c",
+		"/nfs/homes/cefelix/Documents/testec03git/ex00/ft_strcmp.c",
+		"/nfs/homes/cefelix/c_list/c04/ex00/ft_strlen.c",
+		"/nfs/homes/cefelix/c_list/c04/ex01/ft_putstr.c",
+		"/nfs/homes/cefelix/c_list/c03/ex05/ft_strlcat.c",
+		"/nfs/homes/cefelix/c_list/c03/ex04/ft_strstr.c",
+		"/nfs/homes/cefelix/c_list/c03/ex03/ft_strncat.c",
+		"/nfs/homes/cefelix/c_list/c03/ex02/ft_strcat.c",
+		"/nfs/homes/cefelix/c_list/c03/ex01/ft_strncmp.c",
+		"/nfs/homes/cefelix/c_list/c03/ex00/ft_strcmp.c",
+		"/nfs/homes/cefelix/c_list/c03/teste.c",
+		"/nfs/homes/cefelix/c_list/c02/ex11/ft_putstr_non_printable.c",
+		"/nfs/homes/cefelix/c_list/c03/#include<stdio.h>",
+		"/nfs/homes/cefelix/c_list/nao ofical rush 00/rush00.c",
+		"/nfs/homes/cefelix/c_list/nao ofical rush 00/main.c",
+		"/nfs/homes/cefelix/c_list/nao ofical rush 00/ft_putchar.c",
+		"/nfs/homes/cefelix/c_list/c02/ex10/ft_strlcpy.c",
+		"/nfs/homes/cefelix/c_list/c02/ex09/ft_strcapitalize.c",
+		"/nfs/homes/cefelix/c_list/c02/ex06/ft_str_is_printable.c",
+		"/nfs/homes/cefelix/c_list/c02/ex05/ft_str_is_uppercase.c",
+		"/nfs/homes/cefelix/c_list/c02/ex04/ft_str_is_lowercase.c",
+		"/nfs/homes/cefelix/c_list/c02/ex03/ft_str_is_numeric.c",
+		"/nfs/homes/cefelix/c_list/c02/ex02/ft_str_is_alpha.c",
+		"/nfs/homes/cefelix/c_list/c02/ex01/ft_strncpy.c",
+		"/nfs/homes/cefelix/c_list/c02/ex00/ft_strcpy.c",
+		"/nfs/homes/cefelix/Videos/void.c",
+		"/nfs/homes/cefelix/.var/app/com.sublimetext.three/config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/nfs/homes/cefelix/.var/app/com.sublimetext.three/config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 98.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "crud00.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
