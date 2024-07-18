@@ -47,6 +47,7 @@ void print_book(Book *book)
     ft_printf("-----------------------\n");
     ft_printf("Title: %s\nPages: %d\nPrice %d\n", book->title, book->pages, book->price);
 }
+
 int main(void)
 {
     Book *book = create_book("A era do gelo", 200, 1999);
