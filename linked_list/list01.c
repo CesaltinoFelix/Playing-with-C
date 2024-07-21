@@ -94,11 +94,44 @@ void LinkedList_remove(LinkedList *list, int value)
             Node *node = list->begin;
             list->begin = node->next;
             free(node);            
-        }
-        }
-    }else{
+        } else 
+        {
+            Node *prevNode = list->begin;
+            Node *auxNode = list->begin->next;
+
+            while(auxNode != NULL && auxNode->value != value)
+            {
+                prevNode = prevNode->next;
+                auxNode = auxNode->next;
+            }
+            if(auxNode != NULL)
+            {
+                if(auxNode->next == NULL)
+                    list->end = prevNode;
+                prevNode->next = auxNode->next;
+                free(auxNode);
+            }else
+            printf("Remove error: The value '%d' doesn't exist in List\n", value);
+        } 
+    }else
+    {
         printf("The List is empty");
     }
+}
+
+void LinkedList_destroy(LinkedList **list)
+{
+    Node *node = (*list)->begin;
+    Node *auxNode;
+
+    while(node != NULL)
+    {
+        auxNode = node->next;
+        free(node);
+        node = auxNode;
+    }
+    free(*list);
+    *list = NULL;
 }
 
 int main(void)
@@ -117,6 +150,9 @@ int main(void)
     puts("");
     LinkedList_remove(list, 13);
     LinkedList_remove(list, 12);
+    LinkedList_remove(list, 5);
+    LinkedList_remove(list, 111);
     LinkedList_remove(list, 9);
     LinkedList_print(list);
+    LinkedList_destroy(&list);
 }
