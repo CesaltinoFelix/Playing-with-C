@@ -1,3 +1,6 @@
+// 7. Alocação dinâmica de memória:
+//    - Escreva um programa que aloque dinamicamente memória para um array de `int` de tamanho fornecido pelo usuário. Popule o array com valores e imprima-os.
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
