@@ -16,7 +16,6 @@ char *convert_to_bits(char c, int pid)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(800);
 	}
 	
 }

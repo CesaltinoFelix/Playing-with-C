@@ -4,6 +4,24 @@
 #include <signal.h>
 
 
+void displayProgressBar(int progress, int total) {
+    int width = 50; // Width of the progress bar
+    float ratio = (float)progress / total;
+    int filledWidth = ratio * width;
+
+    printf("\r[");
+    for (int i = 0; i < width; ++i) {
+        if (i < filledWidth) {
+            printf("\033[0;32m█\033[0m"); // Green color for the filled part
+        } else {
+            printf(" ");
+        }
+    }
+    printf("] %d%%", (int)(ratio * 100));
+    fflush(stdout);
+}
+
+
 void handler_bit_recived(int signum)
 {
 	static int counter;
@@ -17,7 +35,6 @@ void handler_bit_recived(int signum)
 	counter++;
 	if(counter == 8)
 	{
-		character_in_bits[8] = '\0';
 		int character = n;
 		write(1, &character, 1);
 		counter = 0;	
@@ -27,7 +44,15 @@ void handler_bit_recived(int signum)
 
 int main(void)
 {
-	printf("Ola eu sou o Cesaltino😀!\n");	
+	printf("\nSTARTING SERVER...\n");
+	usleep(1000);
+	int total = 100; // Total steps
+	for (int i = 0; i <= total; ++i) {
+		displayProgressBar(i, total);
+		usleep(15000); // Sleep for 50 milliseconds
+	}
+	printf("\nDone!\n");
+	printf("Ola eu sou o Cesaltino Felix 😀, seja bem-vindo ao meu servidor!\n");	
 	printf("Server PID: %d\n", getpid());
 	
 	
@@ -37,5 +62,7 @@ int main(void)
 		signal(SIGUSR2, handler_bit_recived);
 		pause();	
 	}
+	
+	return 0;
 }
 
