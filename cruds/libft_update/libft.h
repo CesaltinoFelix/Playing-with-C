@@ -51,7 +51,7 @@ char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
-//EXTRA FUNCTIONS 
+//EXTRA FUNCTIONS  used in ft_printf project
 int	ft_abs(int x);
 int	ft_putstr(char *s);
 int	ft_putchar(char c);
