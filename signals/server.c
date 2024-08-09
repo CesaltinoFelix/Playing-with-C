@@ -22,20 +22,22 @@ void displayProgressBar(int progress, int total) {
 }
 
 
-void handler_bit_recived(int signum)
+void handler_bit_recived(int signum, , )
 {
-	static int counter;
-	static int n;
+	static int counter = 0;
+	static int n = 0;
 	
 	if(signum == SIGUSR1)
-		n = n * 2 + 1;
+		n = n * 2 + 1;	
+
 	else
 		n = n * 2 + 0;
-
+		
 	counter++;
+
 	if(counter == 8)
 	{
-		int character = n;
+		unsigned char character = n;
 		write(1, &character, 1);
 		counter = 0;	
 	}
@@ -55,11 +57,14 @@ int main(void)
 	printf("Ola eu sou o Cesaltino Felix 😀, seja bem-vindo ao meu servidor!\n");	
 	printf("Server PID: %d\n", getpid());
 	
+	struct sigaction action;
+	action.sa_sigaction = 
+	action.sa_flags = SA_SIGINFO; 
 	
+	signal(SIGUSR1, handler_bit_recived);
+	signal(SIGUSR2, handler_bit_recived);
 	while(1)
 	{
-		signal(SIGUSR1, handler_bit_recived);
-		signal(SIGUSR2, handler_bit_recived);
 		pause();	
 	}
 	
