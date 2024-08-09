@@ -1,0 +1,22 @@
+Projetos interessantes em C que envolvem o uso de processos e sinais:
+
+1. Gerenciador de Tarefas Simples:
+   - Crie um gerenciador de tarefas que possa listar, iniciar e encerrar processos. Utilize sinais como SIGKILL ou SIGTERM para encerrar processos, e SIGSTOP e SIGCONT para pausar e continuar a execução.
+
+2. Relógio Despertador:
+   - Desenvolva um programa que funcione como um despertador. O programa deve permitir que o usuário defina um horário, e quando esse horário chegar, o programa envia um sinal para executar uma ação, como tocar um som ou exibir uma mensagem.
+
+3. Servidor de Chat com Múltiplos Processos:
+   - Implemente um servidor de chat que utilize processos para lidar com várias conexões de clientes simultaneamente. Use sinais para notificar os processos sobre novos clientes ou para encerrar a comunicação.
+
+4. Simulador de Shell:
+   - Crie uma mini shell que permita ao usuário executar comandos do sistema operacional. Utilize processos para a execução dos comandos e sinais para gerenciar a interrupção (Ctrl+C) e suspensão (Ctrl+Z) dos mesmos.
+
+5. Simulador de Pipeline:
+   - Implemente um simulador de pipeline onde diferentes processos se comunicam através de pipes. Cada processo pode representar uma etapa de processamento de dados, e sinais podem ser usados para controlar o fluxo de dados entre os processos.
+
+6. Monitor de Sistema:
+   - Desenvolva um monitor de sistema que possa observar processos específicos e enviar sinais baseados em certas condições, como uso excessivo de CPU ou memória. 
+
+7. Gerador de Relatórios de Estatísticas de Processos:
+   - Crie um programa que gere relatórios sobre o uso de processos no sistema. Ele deve coletar informações como PID, uso de CPU, e tempo de execução, enviando sinais para os processos para obter ou alterar estados.
