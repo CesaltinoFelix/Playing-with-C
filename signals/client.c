@@ -1,7 +1,30 @@
 #include <signal.h>
 #include <unistd.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+void handler_bit_recived(int signum)
+{
+
+	static int counter = 0;
+	static int n = 0;
+
+	if(signum == SIGUSR1)
+		n = n * 2 + 1;	
+
+	else
+		n = n * 2 + 0;
+		
+	counter++;
+
+	if(counter == 8)
+	{
+		write(1, &n, 1);
+		counter = 0;
+		n = 0;	
+	}
+			
+}
 
 
 void convert_to_bits(char c, int pid)
@@ -47,6 +70,11 @@ void invalid_pid(char *str)
 
 int main(int argc, char **argv)
 {
+	
+	signal(SIGUSR1, handler_bit_recived);
+	signal(SIGUSR2, handler_bit_recived);
+	printf("Client PID = %d", getpid());
+	
     if (argc != 3) 
     {
         eg_usage(argv[0]);
@@ -68,6 +96,7 @@ int main(int argc, char **argv)
         convert_to_bits(argv[2][i], pid);
         i++;
     }
+    convert_to_bits('\n', pid);
     
     return EXIT_SUCCESS;
 }
