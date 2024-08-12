@@ -1,96 +1,104 @@
-#include <stdio.h>
 #include <unistd.h>
-
 #include <signal.h>
 
+int ft_strlen(const char *str)
+{
+	int	i;
+	i = 0;
+	while(str[i])
+		i++;
+	return (i);
+}
 
-void displayProgressBar(int progress, int total) {
-    int width = 50;
-    float ratio = (float)progress / total;
-    int filledWidth = ratio * width;
-
-    printf("\r[");
-    for (int i = 0; i < width; ++i) {
-        if (i < filledWidth) {
-            printf("\033[0;32m█\033[0m");
-        } else {
-            printf(" ");
-        }
-    }
-    printf("] %d%%", (int)(ratio * 100));
-    fflush(stdout);
+void ft_putnbr(int num)
+{
+	if(num >= 10)
+		 ft_putnbr(num / 10);
+	char ch = num % 10 + '0';
+	write(STDOUT_FILENO, &ch, 1);
 }
 
 
-void handler_bit_recived(int signum, siginfo_t *info, void *ucontext)
-{
+
+void handler_bit_received(int signum, siginfo_t *info, void *ucontext) {
+	
 	(void)ucontext;
 	static int client_pid = 0;
 	static int counter = 0;
 	static int n = 0;
-	
-	if(client_pid != info->si_pid)
+    
+    	if(client_pid != info->si_pid)
 	{
 		counter = 0;
 		n = 0;
-	
 	}
 	client_pid = info->si_pid;
-	
-	if(signum == SIGUSR1)
-	{
-		n = n * 2 + 1;	
-		if(kill(client_pid, SIGUSR1) == -1)
-		{
-			write(1, "ERROR\n", 5);
-		};
-	}
-	else
-	{
-		n = n * 2 + 0;
-		if(kill(client_pid, SIGUSR2) == -1)
-		{
-			write(1, "ERROR\n", 5);
-		};
-	}
-		
-	counter++;
-	
-	if(counter == 8)
-	{
-		write(1, &n, 1);
-		counter = 0;
-		n = 0;	
 
-	}
-	
+    if (signum == SIGUSR1)
+    {  
+        n = n * 2 + 1;    
+        if(kill(client_pid, SIGUSR1) == -1)
+		write(1, "ERROR\n", 5);
+    }
+    else
+    {
+        n = n * 2 + 0;
+   	if(kill(client_pid, SIGUSR2) == -1)
+		write(1, "ERROR\n", 5); 
+   }
+    counter++;
+
+    if (counter == 8) {
+        write(STDOUT_FILENO, &n, 1);
+        counter = 0;
+        n = 0;    
+    }
 }
 
-int main(void)
-{
-	printf("\nSTARTING SERVER...\n");
-	usleep(1000);
-	int total = 100; 
-	for (int i = 0; i <= total; ++i) {
-		displayProgressBar(i, total);
-		usleep(15000);
-	}
-	
-	printf("\nDone!\n");
-	printf("Ola eu sou o Cesaltino Felix 😀, seja bem-vindo ao meu servidor!\n");	
-	printf("Server PID: %d\n", getpid());
-	
-	struct sigaction action;
-	action.sa_sigaction = handler_bit_recived;
-	action.sa_flags = SA_SIGINFO; 
-	
-	sigaction(SIGUSR1, &action, NULL);
-	sigaction(SIGUSR2, &action, NULL);
-	while(1)
-	{
-		pause();	
-	}
-	
-	return 0;
+void show_preloader() {
+    const char *message = "STARTING SERVER";
+    const char *done_message = "Done!\n";
+
+    while (1) {
+        write(STDOUT_FILENO, message, 15);
+        usleep(500000);
+
+        write(STDOUT_FILENO, "\rSTARTING SERVER.", 17);
+        usleep(500000);
+
+        write(STDOUT_FILENO, "\rSTARTING SERVER..", 18);
+        usleep(500000);
+
+        write(STDOUT_FILENO, "\rSTARTING SERVER...", 19);
+        usleep(500000);
+
+        break;
+    }
+    write(STDOUT_FILENO, "\r", 1);
+    write(STDOUT_FILENO, done_message, 6);
+}
+
+int main(void) {
+
+    show_preloader();
+
+    const char *welcome_message = "Ola eu sou o Cesaltino Felix 😀, seja bem-vindo ao meu servidor!\n";
+    write(STDOUT_FILENO, welcome_message, ft_strlen(welcome_message));
+
+    write(STDOUT_FILENO, "Server PID: ", 12);
+    ft_putnbr(getpid());
+    write(STDOUT_FILENO, "\n", 1);
+
+    struct sigaction action;
+    action.sa_sigaction = handler_bit_received;
+    action.sa_flags = SA_SIGINFO;
+    sigaction(SIGUSR1, &action, NULL);
+    sigaction(SIGUSR2, &action, NULL);
+
+    while (1) {
+        pause();    
+    }
+
+    return 0;
 }
 
