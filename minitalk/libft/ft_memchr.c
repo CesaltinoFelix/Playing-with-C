@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cefelix <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 17:18:52 by cefelix           #+#    #+#             */
-/*   Updated: 2024/06/16 17:18:56 by cefelix          ###   ########.fr       */
+/*   Created: 2024/05/14 12:41:09 by cefelix           #+#    #+#             */
+/*   Updated: 2024/05/14 12:41:12 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "../includes/ft_printf.h"
-
-int	ft_putnbr(long n)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	long		nbr;
-	int			len;
+	unsigned int	i;
+	unsigned char	*haystack;
+	unsigned char	needle;
 
-	nbr = 0;
-	len = 0;
-	if (n == -2147483648)
+	i = 0;
+	haystack = (unsigned char *) s;
+	needle = (unsigned char) c;
+	while (i < n)
 	{
-		write(1, "-2147483648", 11);
-		return (11);
+		if (haystack[i] == needle)
+			return ((void *) haystack + i);
+		i++;
 	}
-	if (n < 0)
-	{
-		nbr = -n;
-		ft_putchar('-');
-		len++;
-	}
-	else
-		nbr = n;
-	if (nbr >= 10)
-		len += ft_putnbr(nbr / 10);
-	ft_putchar(nbr % 10 + 48);
-	len++;
-	return (len);
+	return (NULL);
 }

@@ -6,83 +6,49 @@
 /*   By: cefelix <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 12:46:14 by cefelix           #+#    #+#             */
-/*   Updated: 2024/08/14 13:52:41 by cefelix          ###   ########.fr       */
+/*   Updated: 2024/08/16 15:11:28 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include "minitalk.h"
 
-char	g_character;
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-int	ft_strlen(const char *str)
+void	null_signal(int pid)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	while (i++ < 8)
+	{
+		kill(pid, SIGUSR2);
+		usleep(500);
+	}
 }
 
-int	ft_atoi(char *str)
+void	error_sending_signal(void)
 {
-	int	i;
-	int	res;
-
-	i = 0;
-	res = 0;
-	while (str[i] == ' ' || str[i] == '\t')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-		return (-1);
-	while (str[i])
-	{
-		if (str[i] >= '0' && str[i] <= '9')
-			res = res * 10 + (str[i] - '0');
-		else
-			return (-1);
-		i++;
-	}
-	if (str[i] != '\0')
-	{
-		return (-1);
-	}
-	return (res);
+	write(2, "Error sending SIGUSR\n", 22);
+	server_error();
+	exit(EXIT_FAILURE);
 }
 
 void	handler_bit_received(int signum)
 {
-	(void)signum;
-	ft_putchar(g_character);
-}
+	static int	counter;
+	static int	n;
 
-void	eg_usage(void)
-{
-	const char	*msg;
-
-	msg = "Usage: ./client <PID> <message>\n";
-	write(2, msg, ft_strlen(msg));
-}
-
-void	invalid_pid(void)
-{
-	const char	*error_msg;
-
-	error_msg = "Easy boy 😀... Your PID must be a (INTEGER) positive value.\n";
-	write(2, error_msg, ft_strlen(error_msg));
-	eg_usage();
-}
-
-void	server_error(void)
-{
-	write(2, "Check if the server is still running\n", 37);
+	if (signum == SIGUSR1)
+		n = n * 2 + 1;
+	else
+		n = n * 2 + 0;
+	counter++;
+	if (counter == 8)
+	{
+		write(1, &n, 1);
+		if (n == '\0')
+			write(1, "\n", 1);
+		counter = 0;
+		n = 0;
+	}
 }
 
 void	convert_to_bits(char c, int pid)
@@ -97,23 +63,14 @@ void	convert_to_bits(char c, int pid)
 		if (bit)
 		{
 			if (kill(pid, SIGUSR1) == -1)
-			{
-				write(2, "Error sending SIGUSR1\n", 23);
-				server_error();
-				exit(EXIT_FAILURE);
-			}
+				error_sending_signal();
 		}
 		else
 		{
 			if (kill(pid, SIGUSR2) == -1)
-			{
-				write(2, "Error sending SIGUSR2\n", 23);
-				server_error();
-				exit(EXIT_FAILURE);
-			}
+				error_sending_signal();
 		}
 		i--;
-		g_character = c;
 		usleep(500);
 	}
 }
@@ -124,12 +81,13 @@ int	main(int argc, char **argv)
 	int	pid;
 
 	signal(SIGUSR1, handler_bit_received);
+	signal(SIGUSR2, handler_bit_received);
 	if (argc != 3)
 	{
 		eg_usage();
 		return (EXIT_FAILURE);
 	}
-	pid = ft_atoi(argv[1]);
+	pid = ft_atoi_valid(argv[1]);
 	i = 0;
 	if (pid <= 0)
 	{
@@ -141,7 +99,6 @@ int	main(int argc, char **argv)
 		convert_to_bits(argv[2][i], pid);
 		i++;
 	}
-	convert_to_bits('\n', pid);
-	ft_putchar('\n');
+	null_signal(pid);
 	return (EXIT_SUCCESS);
 }

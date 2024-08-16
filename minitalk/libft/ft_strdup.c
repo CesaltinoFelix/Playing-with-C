@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunsigned.c                                   :+:      :+:    :+:   */
+/*   ft_strdup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cefelix <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 17:19:21 by cefelix           #+#    #+#             */
-/*   Updated: 2024/06/16 17:19:27 by cefelix          ###   ########.fr       */
+/*   Created: 2024/05/14 12:41:09 by cefelix           #+#    #+#             */
+/*   Updated: 2024/05/14 12:41:12 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "../includes/ft_printf.h"
-
-int	ft_putunsigned(unsigned int n)
+char	*ft_strdup(const char *s)
 {
-	return (ft_putnbr(n));
+	unsigned int	strlength;
+	char			*newstr;
+
+	strlength = ft_strlen(s);
+	newstr = ft_calloc((strlength + 1), sizeof(const char));
+	if (newstr == NULL)
+		return (NULL);
+	newstr = ft_memcpy(newstr, s, strlength);
+	return (newstr);
 }

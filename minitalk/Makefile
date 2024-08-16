@@ -1,33 +1,39 @@
-CLIENT = client
-SERVER = server
+SRCS	= client.c server.c
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+OBJS	:= $(SRCS:%.c=%.o)
 
-CLIENT_SRC = client.c
-SERVER_SRC = server.c
+NAME	= minitalk
 
-CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
-SERVER_OBJ = $(SERVER_SRC:.c=.o)
+CC		= gcc
+RM		= rm -f
 
-all: $(CLIENT) $(SERVER)
+CFLAGS 	= -Wall -Wextra -Werror
 
-$(CLIENT): $(CLIENT_OBJ)
-	$(CC) $(CFLAGS) -o $(CLIENT) $(CLIENT_OBJ)
+all:		${NAME}
 
-$(SERVER): $(SERVER_OBJ)
-	$(CC) $(CFLAGS) -o $(SERVER) $(SERVER_OBJ)
+%.o:	%.c
+		${CC} ${CFLAGS} -Ilibft -c $? -o $@
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+${NAME}:	 server client
+
+server:		server.o
+		@make -C libft
+		${CC} ${CFLAGS} $? -Llibft -lft -o server
+
+client:		client.o
+		@make -C libft
+		${CC} ${CFLAGS} $? -Llibft -lft -o client
+
+libft:
+		make -C libft
 
 clean:
-	rm -f $(CLIENT_OBJ) $(SERVER_OBJ)
+			make clean -C libft
+			${RM} ${OBJS}
 
-fclean: clean
-	rm -f $(CLIENT) $(SERVER)
+fclean:		clean
+			${RM} server client
 
-re: fclean all
+re:			fclean all
 
-.PHONY: all clean fclean re
-
+.PHONY:		libft
