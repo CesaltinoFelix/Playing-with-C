@@ -12,6 +12,11 @@ typedef struct	_linked_list
 	Node	*begin;
 }	Linked_List;
 
+int	Is_Empty(Linked_List *list)
+{
+	return (list->begin == NULL);
+}
+
 Linked_List	*Create_List(void)
 {
 	Linked_List *list = (Linked_List *)malloc(sizeof(Linked_List));
@@ -77,7 +82,7 @@ void	*Print_List(Linked_List *list)
 
 void	Linked_List_Destroy(Linked_List *list)
 {
-	if(list->begin == NULL)
+	if(Is_Empty(list))
 		return;
 	Node *current = list->begin;
 	while(current != NULL)
@@ -93,7 +98,7 @@ void	Linked_List_Remove_First(Linked_List *list)
 {
 	Node	*current;
 	
-	if(list->begin == NULL)
+	if(Is_Empty(list))
 		return;
 	current = list->begin;
 	list->begin = list->begin->next;
@@ -104,7 +109,7 @@ void Linked_List_Remove_Last(Linked_List *list)
 {
 	Node	*current;
 	
-	if(list->begin == NULL)
+	if(Is_Empty(list))
 		return;
 	current = list->begin;
 	if(current->next == NULL)
@@ -127,7 +132,7 @@ void Linked_List_Remove_Index(Linked_List *list, int index)
 	int	i;
 	Node	*current;
 	Node	*node_to_remove;
-	if(list->begin == NULL || index < 0)
+	if(Is_Empty(list) || index < 0)
 		return;
 	current = list->begin;
 	if (index == 0)
@@ -149,9 +154,9 @@ void Linked_List_Remove_Index(Linked_List *list, int index)
 	current->next = node_to_remove->next;
 	free(node_to_remove);
 }
-	int	main(void)
-	{
-		Linked_List *list = Create_List();
+int	main(void)
+{
+	Linked_List *list = Create_List();
 	Linked_List_Add_First(list, 2);
 	Linked_List_Add_First(list, 3);
 	Linked_List_Add_First(list, 0);
