@@ -91,7 +91,7 @@ void	Linked_List_Destroy(Linked_List *list)
 
 void	Linked_List_Remove_First(Linked_List *list)
 {
-	Node *current;
+	Node	*current;
 	
 	if(list->begin == NULL)
 		return;
@@ -100,9 +100,30 @@ void	Linked_List_Remove_First(Linked_List *list)
 	free(current);
 }
 
-int	main(void)
+void Linked_List_Remove_Last(Linked_List *list)
 {
-	Linked_List *list = Create_List();
+	Node	*current;
+	Node	*node_to_remove;
+	if(list->begin == NULL)
+		return;
+	current = list->begin;
+	if(current->next == NULL)
+	{
+		free(current);
+		list->begin = NULL;
+	}
+	else
+	{
+
+			while(current->next->next != NULL)
+				current = current->next;
+			free(current->next);
+			current->next = NULL;
+		}
+	}
+	int	main(void)
+	{
+		Linked_List *list = Create_List();
 	Linked_List_Add_First(list, 2);
 	Linked_List_Add_First(list, 3);
 	Linked_List_Add_First(list, 0);
@@ -111,6 +132,7 @@ int	main(void)
 	Print_List(list);
 	printf("\n\n\n");
 	Linked_List_Remove_First(list);
+	Linked_List_Remove_Last(list);
 	Print_List(list);
 	Linked_List_Destroy(list);
 	return (0);
