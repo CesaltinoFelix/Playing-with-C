@@ -103,7 +103,7 @@ void	Linked_List_Remove_First(Linked_List *list)
 void Linked_List_Remove_Last(Linked_List *list)
 {
 	Node	*current;
-	Node	*node_to_remove;
+	
 	if(list->begin == NULL)
 		return;
 	current = list->begin;
@@ -121,6 +121,34 @@ void Linked_List_Remove_Last(Linked_List *list)
 			current->next = NULL;
 	}
 }
+
+void Linked_List_Remove_Index(Linked_List *list, int index)
+{
+	int	i;
+	Node	*current;
+	Node	*node_to_remove;
+	if(list->begin == NULL || index < 0)
+		return;
+	current = list->begin;
+	if (index == 0)
+	{
+		Linked_List_Remove_First(list);
+		return;
+	}
+	i = 0;
+	while(i < index - 1)
+	{
+		if(current->next == NULL)
+			return;
+		current = current->next;
+	}
+
+	node_to_remove = current->next;
+	if(node_to_remove == NULL)
+		return;
+	current->next = node_to_remove->next;
+	free(node_to_remove);
+}
 	int	main(void)
 	{
 		Linked_List *list = Create_List();
@@ -133,6 +161,12 @@ void Linked_List_Remove_Last(Linked_List *list)
 	printf("\n\n\n");
 	Linked_List_Remove_First(list);
 	Linked_List_Remove_Last(list);
+	Print_List(list);
+	printf("\n\n\n");
+	Linked_List_Remove_Index(list, 1);
+	Print_List(list);
+	Linked_List_Remove_Index(list, 0);
+	printf("\n\n\n");
 	Print_List(list);
 	Linked_List_Destroy(list);
 	return (0);
