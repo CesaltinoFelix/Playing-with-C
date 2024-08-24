@@ -51,7 +51,7 @@ void	*Linked_List_Add_Last(Linked_List *list ,int value)
 	Node *node = Create_Node(value);
 
 	if(current == NULL)
-		current = node;
+		list->begin = node;
 	else
 	{		
 		while(current->next != NULL)
@@ -89,6 +89,17 @@ void	Linked_List_Destroy(Linked_List *list)
 	free(list);
 }
 
+void	Linked_List_Remove_First(Linked_List *list)
+{
+	Node *current;
+	
+	if(list->begin == NULL)
+		return;
+	current = list->begin;
+	list->begin = list->begin->next;
+	free(current);
+}
+
 int	main(void)
 {
 	Linked_List *list = Create_List();
@@ -97,6 +108,9 @@ int	main(void)
 	Linked_List_Add_First(list, 0);
 	Linked_List_Add_Last(list, -1);
 	Linked_List_Add_Last(list, 10);
+	Print_List(list);
+	printf("\n\n\n");
+	Linked_List_Remove_First(list);
 	Print_List(list);
 	Linked_List_Destroy(list);
 	return (0);
