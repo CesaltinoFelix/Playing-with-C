@@ -185,7 +185,7 @@ int	main(void)
 	printf("\n\n\n");
 	Linked_List_Remove_Index(list, 1);
 	Print_List(list);
-	Linked_List_Remove_Index(list, 2);
+	Linked_List_Remove_Index(list, 0);
 	printf("\n\n\n");
 	Print_List(list);
 	printf("Tamanho Final da Lista = %d", List_Size(list));
