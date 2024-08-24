@@ -119,8 +119,8 @@ void Linked_List_Remove_Last(Linked_List *list)
 				current = current->next;
 			free(current->next);
 			current->next = NULL;
-		}
 	}
+}
 	int	main(void)
 	{
 		Linked_List *list = Create_List();
