@@ -17,6 +17,20 @@ int	Is_Empty(Linked_List *list)
 	return (list->begin == NULL);
 }
 
+int	List_Size(Linked_List *list)
+{
+	int	i;
+	Node *current;
+
+	i = 0;
+	current = list->begin;
+	while(current != NULL)
+	{
+		current = current->next;
+		i++;
+	}
+	return (i);
+}
 Linked_List	*Create_List(void)
 {
 	Linked_List *list = (Linked_List *)malloc(sizeof(Linked_List));
@@ -132,7 +146,7 @@ void Linked_List_Remove_Index(Linked_List *list, int index)
 	int	i;
 	Node	*current;
 	Node	*node_to_remove;
-	if(Is_Empty(list) || index < 0)
+	if(Is_Empty(list) || index < 0 || index > List_Size(list))
 		return;
 	current = list->begin;
 	if (index == 0)
@@ -162,6 +176,7 @@ int	main(void)
 	Linked_List_Add_First(list, 0);
 	Linked_List_Add_Last(list, -1);
 	Linked_List_Add_Last(list, 10);
+	printf("Tamanho Inicial da List = %d\n", List_Size(list));
 	Print_List(list);
 	printf("\n\n\n");
 	Linked_List_Remove_First(list);
@@ -170,9 +185,10 @@ int	main(void)
 	printf("\n\n\n");
 	Linked_List_Remove_Index(list, 1);
 	Print_List(list);
-	Linked_List_Remove_Index(list, 0);
+	Linked_List_Remove_Index(list, 2);
 	printf("\n\n\n");
 	Print_List(list);
+	printf("Tamanho Final da Lista = %d", List_Size(list));
 	Linked_List_Destroy(list);
 	return (0);
 }
