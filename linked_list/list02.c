@@ -12,6 +12,25 @@ typedef struct	_linked_list
 	Node	*begin;
 }	Linked_List;
 
+int	Is_Empty(Linked_List *list)
+{
+	return (list->begin == NULL);
+}
+
+int	List_Size(Linked_List *list)
+{
+	int	i;
+	Node *current;
+
+	i = 0;
+	current = list->begin;
+	while(current != NULL)
+	{
+		current = current->next;
+		i++;
+	}
+	return (i);
+}
 Linked_List	*Create_List(void)
 {
 	Linked_List *list = (Linked_List *)malloc(sizeof(Linked_List));
@@ -51,7 +70,7 @@ void	*Linked_List_Add_Last(Linked_List *list ,int value)
 	Node *node = Create_Node(value);
 
 	if(current == NULL)
-		current = node;
+		list->begin = node;
 	else
 	{		
 		while(current->next != NULL)
@@ -77,7 +96,7 @@ void	*Print_List(Linked_List *list)
 
 void	Linked_List_Destroy(Linked_List *list)
 {
-	if(list->begin == NULL)
+	if(Is_Empty(list))
 		return;
 	Node *current = list->begin;
 	while(current != NULL)
@@ -89,6 +108,66 @@ void	Linked_List_Destroy(Linked_List *list)
 	free(list);
 }
 
+void	Linked_List_Remove_First(Linked_List *list)
+{
+	Node	*current;
+	
+	if(Is_Empty(list))
+		return;
+	current = list->begin;
+	list->begin = list->begin->next;
+	free(current);
+}
+
+void Linked_List_Remove_Last(Linked_List *list)
+{
+	Node	*current;
+	
+	if(Is_Empty(list))
+		return;
+	current = list->begin;
+	if(current->next == NULL)
+	{
+		free(current);
+		list->begin = NULL;
+	}
+	else
+	{
+
+			while(current->next->next != NULL)
+				current = current->next;
+			free(current->next);
+			current->next = NULL;
+	}
+}
+
+void Linked_List_Remove_Index(Linked_List *list, int index)
+{
+	int	i;
+	Node	*current;
+	Node	*node_to_remove;
+	if(Is_Empty(list) || index < 0 || index > List_Size(list))
+		return;
+	current = list->begin;
+	if (index == 0)
+	{
+		Linked_List_Remove_First(list);
+		return;
+	}
+	i = 0;
+	while(i < index - 1)
+	{
+		if(current->next == NULL)
+			return;
+		current = current->next;
+	}
+
+	node_to_remove = current->next;
+	if(node_to_remove == NULL)
+		return;
+	current->next = node_to_remove->next;
+	free(node_to_remove);
+}
 int	main(void)
 {
 	Linked_List *list = Create_List();
@@ -97,7 +176,19 @@ int	main(void)
 	Linked_List_Add_First(list, 0);
 	Linked_List_Add_Last(list, -1);
 	Linked_List_Add_Last(list, 10);
+	printf("Tamanho Inicial da List = %d\n", List_Size(list));
 	Print_List(list);
+	printf("\n\n\n");
+	Linked_List_Remove_First(list);
+	Linked_List_Remove_Last(list);
+	Print_List(list);
+	printf("\n\n\n");
+	Linked_List_Remove_Index(list, 1);
+	Print_List(list);
+	Linked_List_Remove_Index(list, 0);
+	printf("\n\n\n");
+	Print_List(list);
+	printf("Tamanho Final da Lista = %d", List_Size(list));
 	Linked_List_Destroy(list);
 	return (0);
 }
