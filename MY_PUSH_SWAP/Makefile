@@ -1,4 +1,4 @@
-SRCS	= main.c utils.c errors.c checks.c helpers.c 
+SRCS	= main.c utils.c errors.c checks.c helpers.c free.c
 # algorithms1.c algorithms2.c normalize.c instructions2.c instructions1.c instructions3.c free.c alg_utils.c
 
 SRC_DIR = sources/

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cefelix <cefelix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:53:46 by cefelix           #+#    #+#             */
-/*   Updated: 2024/09/25 13:28:26 by cefelix          ###   ########.fr       */
+/*   Updated: 2024/09/27 09:23:29 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,4 @@ int	ft_count_words(char **arguments)
 	while (arguments[i])
 		i++;
 	return (i);
-}
-
-void	ft_free_matrix(char **matrix)
-{
-	int	i;
-
-	i = -1;
-	while (matrix[++i])
-		free(matrix[i]);
-	free(matrix);
 }

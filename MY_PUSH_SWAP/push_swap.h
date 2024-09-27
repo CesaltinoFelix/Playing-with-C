@@ -23,15 +23,18 @@ int	has_matrix_arguments;
 }	t_init;
 
 //UTILS FUCTIONS
-void	ft_check_is_num(char **arguments, char *str);
+void	ft_check_is_num(t_init *ps, char *str);
 int	ft_count_words(char **arguments);
-void	ft_free_matrix(char **matrix);
 
 //HELPERS FUNCTIONS
-void	create_stack(t_init *ps);
-int	stack_size(t_list *list);
-int	is_empty(t_list *list);
-
+void	push(t_list **stack, int value);
+void	create_stacks(t_init *ps);
 //ERROR FUNCTION
+void	cleanup_and_error(t_init *ps);
 int	error(void);
+//CHECK FUNCTIONS
+void	ft_check_max_min(t_init *ps, char *str);
+//FREE FUNCTIONS
+void	ft_free_matrix(char **matrix);
+void free_stacks(t_init *ps);
 #endif
