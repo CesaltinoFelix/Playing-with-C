@@ -6,7 +6,7 @@
 /*   By: cefelix <cefelix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 10:12:34 by cefelix           #+#    #+#             */
-/*   Updated: 2024/09/30 14:45:41 by cefelix          ###   ########.fr       */
+/*   Updated: 2024/10/01 09:54:44 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 
 void	algorithms(t_init *ps)
 {
-
-	//ft_print_stack(ps->stack_a);
+	ft_printf("Pilha A no principio:\n");
+	ft_print_stack(ps->stack_a);
 
 	if (ps->num_args == 2)
 		two_args_alg(ps);
 	else if (ps->num_args == 3)
 		three_args_alg(ps);
 	else  
-		(void)NULL;
-		//big_algorithm(ps);
+		big_algorithm(ps);
+	ft_printf("\n\n\nPilha A no fim:\n");
+	ft_print_stack(ps->stack_a);
+	ft_printf("\n\n\nPilha B no fim:\n");
+	ft_print_stack(ps->stack_b);
 
-	//ft_print_stack(ps->stack_a);
+
 }
 
 void	two_args_alg(t_init *ps)

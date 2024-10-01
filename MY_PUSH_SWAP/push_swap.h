@@ -48,6 +48,7 @@ void free_stacks(t_init *ps);
 void	algorithms(t_init *ps);
 void	two_args_alg(t_init *ps);
 void	three_args_alg(t_init *ps);
+void	big_algorithm(t_init *ps);
 //SWAP FUNCTIONS
 void	ft_swap_a(t_init *ps, int is_comb_operatin);
 void	ft_swap_b(t_init *ps, int is_comb_operatin);
@@ -59,4 +60,7 @@ void	ft_reverse_rotate(t_init *ps);
 void	ft_reverse_rotate_a(t_init *ps, int is_comb_operation);
 void	ft_reverse_rotate_b(t_init *ps, int is_comb_operation);
 void	ft_reverse_rotate_rotate(t_init *ps);
+//push functions 
+void	ft_push_a(t_init *ps);
+void	ft_push_b(t_init *ps);
 #endif
