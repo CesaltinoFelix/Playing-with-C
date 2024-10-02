@@ -6,7 +6,7 @@
 /*   By: cefelix <cefelix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:53:46 by cefelix           #+#    #+#             */
-/*   Updated: 2024/10/02 11:44:03 by cefelix          ###   ########.fr       */
+/*   Updated: 2024/10/02 14:15:54 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ int	ft_get_index(t_list *a, int value)
 	return (i);
 }
 
-int	ft_get_best_option(t_list **a, int b)
+int	ft_get_best_option(t_list *a, int b)
 {
-	int	value;
+	long int	value;
 	t_list		*tmp;
-
+	
 	value = INT_MAX;
-	if (b > ft_get_max_value(*a) || b < ft_get_min_value(*a))
-		return (ft_get_min_value(*a));
+	if (b > ft_get_max_value(a) || b < ft_get_min_value(a))
+		return (ft_get_min_value(a));
 	else
 	{
-		tmp = *a;
+		tmp = a;
 		while (tmp)
 		{
 			if (tmp->value > b)
@@ -75,27 +75,31 @@ void	ft_set_direction(t_init *ps, t_helper *vars)
 	}
 }
 
-void	ft_put_min_top(t_list **stack, int num_elements)
+void	ft_put_min_top(t_init *ps, t_list *stack, int num_elements)
 {
 	int	min;
 	int	direction;
 	int	index;
 
-	min = ft_get_min_value(*stack);
-	index = ft_get_index(*stack, min);
+	min = ft_get_min_value(stack);
+	index = ft_get_index(stack, min);
+
+	// Determinar a direção da rotação
 	if (index <= num_elements / 2)
-	{
 		direction = -1;
-	}
-	else if (index > num_elements / 2)
-	{
+	else
 		direction = 1;
-	}
-	while ((*stack)->value != min)
+
+	// Executar a rotação até que o valor mínimo esteja no topo
+	while (ps->stack_a->value != min)
 	{
 		if (direction == -1)
-			ft_rotate_a(stack, 1);
-		else if (direction == 1)
-			ft_reverse_rotate_a(stack, 1);
+			ft_rotate_a(ps, 0);  // Rotaciona para cima
+		else
+			ft_reverse_rotate_a(ps, 0);  // Rotaciona para baixo
 	}
+
+	// O valor mínimo deve estar agora no topo da pilha A
 }
+
+

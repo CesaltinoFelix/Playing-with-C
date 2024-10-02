@@ -8,7 +8,7 @@
 
 # define INT_MIN -2147483648
 
-# define INT_MAX 2147483647
+# define INT_MAX 4294967296
 
 typedef struct s_node
 {
@@ -54,10 +54,15 @@ void ft_print_stack(t_list *stack);
 int	ft_count_words(char **arguments);
 int	ft_get_max_value(t_list *stack);
 int	ft_get_min_value(t_list *stack);
-t_target	ft_get_best_comb(t_list **a, t_list **b);
+t_target	ft_get_best_comb(t_init *ps);
 void	ft_set_direction(t_init *ps, t_helper *vars);
-int	ft_get_best_option(t_list **a, int b);
+int	ft_get_best_option(t_list *a, int b);
 int	ft_get_index(t_list *a, int value);
+void	ft_set_targets(t_helper *vars, t_target *dados, t_init *ps);
+void	ft_put_min_top(t_init *ps, t_list *stack, int num_elements);
+void	ft_rrr_rr(t_init *ps, t_target data_target);
+int	ft_case_rrr_or_rr(int value, t_init *ps, int direction);
+void	ft_order_b_in_a(t_init *ps, t_target target_data);
 //HELPERS FUNCTIONS
 void	push(t_list **stack, int value);
 void	create_stacks(t_init *ps);
@@ -84,7 +89,7 @@ void	ft_swap_swap(t_init *ps);
 //ROTATE FUNCTION
 void	ft_rotate_a(t_init *ps, int is_comb_operation);
 void	ft_rotate_b(t_init *ps, int is_comb_operation);
-void	ft_reverse_rotate(t_init *ps);
+void	ft_rotate_rotate(t_init *ps);
 void	ft_reverse_rotate_a(t_init *ps, int is_comb_operation);
 void	ft_reverse_rotate_b(t_init *ps, int is_comb_operation);
 void	ft_reverse_rotate_rotate(t_init *ps);

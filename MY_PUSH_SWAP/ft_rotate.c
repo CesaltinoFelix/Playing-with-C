@@ -6,7 +6,7 @@
 /*   By: cefelix <cefelix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 11:47:41 by cefelix           #+#    #+#             */
-/*   Updated: 2024/09/30 14:28:13 by cefelix          ###   ########.fr       */
+/*   Updated: 2024/10/02 12:44:36 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_rotate_b(t_init *ps, int is_comb_operation)
 	}
 }
 
-void	ft_reverse_rotate(t_init *ps)
+void	ft_rotate_rotate(t_init *ps)
 {
 	ft_rotate_a(ps, 1);
 	ft_rotate_b(ps, 1);

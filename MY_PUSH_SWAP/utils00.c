@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils00.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cefelix <cefelix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 12:53:46 by cefelix           #+#    #+#             */
-/*   Updated: 2024/10/02 11:31:23 by cefelix          ###   ########.fr       */
+/*   Updated: 2024/10/02 12:59:45 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_get_min_value(t_list *stack)
 	return (tmp);
 }
 
-t_target	ft_get_best_comb(t_list **a, t_list **b)
+t_target	ft_get_best_comb(t_init *ps)
 {
 	t_list	*tmp;
 	t_target	target;
@@ -60,14 +60,14 @@ t_target	ft_get_best_comb(t_list **a, t_list **b)
 
 	vars.i = 0;
 	vars.best_target_b = INT_MAX;
-	tmp = (*b);
+	tmp = ps->stack_b;
 	while ((tmp))
 	{
-		vars.value = ft_get_best_option(a, tmp->value);
-		vars.index = ft_get_index(*a, vars.value);
-		ft_set_sentidos(a, b, &vars);
+		vars.value = ft_get_best_option(ps->stack_a, tmp->value);
+		vars.index = ft_get_index(ps->stack_a, vars.value);
+		ft_set_direction(ps, &vars);
 		vars.arg = tmp->value;
-		ft_set_alvos(&vars, &target, a, b);
+		ft_set_targets(&vars, &target, ps);
 		tmp = tmp->next;
 		vars.i++;
 	}
