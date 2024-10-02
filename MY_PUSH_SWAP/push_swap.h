@@ -6,6 +6,10 @@
 # include "printf/ft_printf.h"
 # include "libft/libft.h"
 
+# define INT_MIN -2147483648
+
+# define INT_MAX 2147483647
+
 typedef struct s_node
 {
 	int value;
@@ -22,6 +26,26 @@ int	num_values_a;
 int	num_values_b;
 }	t_init;
 
+typedef struct s_target
+{
+	int				a_value;
+	int				b_value;
+	int				a_direction;
+	int				b_direction;
+}	t_target;
+
+typedef struct s_helper
+{
+	long int		best_target_b;
+	int				stack_a;
+	int				stack_b;
+	int				a_direction;
+	int				b_direction;
+	int				index;
+	int				value;
+	int				i;
+	int				arg;
+}					t_helper;
 //################## TENHO QUE APAGAR ######################################
 void ft_print_stack(t_list *stack);
 //################## TENHO QUE APAGAR ######################################
@@ -30,6 +54,10 @@ void ft_print_stack(t_list *stack);
 int	ft_count_words(char **arguments);
 int	ft_get_max_value(t_list *stack);
 int	ft_get_min_value(t_list *stack);
+t_target	ft_get_best_comb(t_list **a, t_list **b);
+void	ft_set_direction(t_init *ps, t_helper *vars);
+int	ft_get_best_option(t_list **a, int b);
+int	ft_get_index(t_list *a, int value);
 //HELPERS FUNCTIONS
 void	push(t_list **stack, int value);
 void	create_stacks(t_init *ps);
