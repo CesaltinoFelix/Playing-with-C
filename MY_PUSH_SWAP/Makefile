@@ -1,5 +1,4 @@
-SRCS	= main.c utils00.c utils01.c utils02.c errors.c checks.c helpers.c free.c algorithms00.c algorithms01.c ft_swap.c ft_rotate.c ft_rotate_rotate.c push.c
-# algorithms1.c algorithms2.c normalize.c instructions2.c instructions1.c instructions3.c free.c alg_utils.c
+SRCS	= main.c ft_utils.c ft_utils2.c ft_utils3.c ft_checks.c ft_checks2.c ft_algorithms1.c ft_algorithms2.c  ft_algorithms3.c ft_swap.c ft_rotate.c ft_push.c
 
 SRC_DIR = sources/
 OBJS	:= $(SRCS:%.c=%.o)
@@ -10,7 +9,7 @@ NAME	= push_swap
 CC		= gcc -g
 RM		= rm -f
 
-CFLAGS 	= -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS 	= -Wall -Wextra -Werror -g
 
 all:		${NAME}
 
@@ -38,4 +37,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		libft printf
+.PHONY:		all clean fclean re libft printf

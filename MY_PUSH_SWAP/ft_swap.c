@@ -5,50 +5,52 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cefelix <cefelix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 10:19:12 by cefelix           #+#    #+#             */
-/*   Updated: 2024/09/30 11:42:58 by cefelix          ###   ########.fr       */
+/*   Created: 2024/10/06 14:15:28 by cefelix           #+#    #+#             */
+/*   Updated: 2024/10/06 15:09:13 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_swap_a(t_init *ps, int is_comb_operatin)
-{	
-	t_list	*stack_a;
-	int	temp;
-
-	if(ps->num_values_a > 1)
-	{
-		stack_a = ps->stack_a;
-		temp = stack_a->value;
-		stack_a->value = stack_a->next->value;
-		stack_a->next->value = temp;
-		if(!is_comb_operatin)
-			ft_printf("sa\n");
-	}
-
-}
-
-void	ft_swap_b(t_init *ps, int is_comb_operatin)
-{	
-	t_list	*stack_b;
-	int	temp;
-
-	if(ps->num_values_a > 1)
-	{
-		stack_b = ps->stack_b;
-		temp = stack_b->value;
-		stack_b->value = stack_b->next->value;
-		stack_b->next->value = temp;
-		if(!is_comb_operatin)
-			ft_printf("sb\n");
-	}
-
-}
-
-void	ft_swap_swap(t_init *ps)
+void	ft_swap_a(t_node **a, int flg)
 {
-	ft_swap_a(ps, 1);
-	ft_swap_b(ps, 1);
+	t_node	*link1;
+	t_node	*link2;
+	t_node	*link3;
+
+	if (*a == NULL || (*a)->next == NULL)
+		return ;
+	link1 = (*a);
+	link2 = link1->next;
+	link3 = link2->next;
+	link2->next = link1;
+	link1->next = link3;
+	*a = link2;
+	if (flg == 1)
+		ft_printf("sa\n");
+}
+
+void	ft_swap_b(t_node **b, int flg)
+{
+	t_node	*link1;
+	t_node	*link2;
+	t_node	*link3;
+
+	if (*b == NULL || (*b)->next == NULL)
+		return ;
+	link1 = (*b);
+	link2 = link1->next;
+	link3 = link2->next;
+	link2->next = link1;
+	link1->next = link3;
+	*b = link2;
+	if (flg == 1)
+		ft_printf("sb\n");
+}
+
+void	ft_swap_swap(t_node **a, t_node **b)
+{
+	ft_swap_a(a, 0);
+	ft_swap_b(b, 0);
 	ft_printf("ss\n");
 }
