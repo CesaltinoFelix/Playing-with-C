@@ -6,7 +6,7 @@
 /*   By: cefelix <cefelix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 14:16:00 by cefelix           #+#    #+#             */
-/*   Updated: 2024/10/08 16:23:55 by cefelix          ###   ########.fr       */
+/*   Updated: 2024/10/09 08:36:57 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "printf/ft_printf.h"
 # include "libft/libft.h"
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -66,6 +65,7 @@ int					ft_get_best_option(t_node **a, int b);
 int					ft_get_index(t_node *a, int value);
 int					ft_count_elem(t_node *list);
 char				*join_args(int ac, char **av);
+char				**get_arguments(int ac, char **av);
 
 t_node				*ft_stack_get_top(t_node *list);
 t_node				*ft_stack_get_last(t_node *list);
