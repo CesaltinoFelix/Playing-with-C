@@ -43,7 +43,7 @@ int main(void)
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		return (1);
-	data.win_ptr = mlx_new_window(data.mlx_ptr, 50*13, 50*5, "hi :)");
+	data.win_ptr = mlx_new_window(data.mlx_ptr, 32*13, 32*5, "hi :)");
 	if (!data.win_ptr)
 		return (free(data.mlx_ptr), 1);
 
@@ -65,7 +65,12 @@ int main(void)
 
 			if(map[i][j] == '1')
 			{
-			img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/Parede.xpm", pw, ph);
+			img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/parede.xpm", pw, ph);
+			mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img_ptr, x, y);
+			}
+			else if(map[i][j] == '0')
+			{
+			img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/piso.xpm", pw, ph);
 			mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img_ptr, x, y);
 			}
 			else if(map[i][j] == 'P')
@@ -78,10 +83,15 @@ int main(void)
 			img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/Money.xpm", pw, ph);
 			mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img_ptr, x, y);
 			}
-			x = x + 50;
+			else if(map[i][j] == 'E')
+			{
+			img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/g1.xpm", pw, ph);
+			mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img_ptr, x, y);
+			}
+			x = x + 32;
 			j++;
 		}
-		y = y + 50;
+		y = y + 32;
 
 		i++;
 	}
