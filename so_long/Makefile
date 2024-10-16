@@ -1,0 +1,46 @@
+SRCS	= main.c 
+
+SRC_DIR = ./
+OBJS	:= $(SRCS:%.c=%.o)
+SRC = $(addprefix $(SRC_DIR), $(SRCS))
+
+CC= gcc -g
+
+NAME= so_long
+CFLAGS 	= -Wall -Wextra -Werror -g
+
+ifeq ($(shell uname), Linux)
+	INCLUDES = -I/usr/include -Imlx
+else
+	INCLUDES = -I/opt/X11/include -Imlx
+endif
+
+MLX_DIR = ./mlx
+MLX_LIB = $(MLX_DIR)/libmlx_$(UNAME).a
+ifeq ($(shell uname), Linux)
+	MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
+else
+	MLX_FLAGS = -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
+endif
+
+# [...]
+
+all: $(MLX_LIB) $(NAME)
+
+
+%.o:	$(SRC_DIR)%.c
+		${CC} ${CFLAGS} -c $? -o $@ $(INCLUDES)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS)
+
+$(MLX_LIB):
+	@make -C $(MLX_DIR)
+	
+RM		= rm -f
+
+clean:
+	${RM} ${OBJS}
+
+fclean:	clean
+	${RM} ${NAME}
