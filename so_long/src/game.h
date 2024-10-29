@@ -11,11 +11,18 @@
 #include <unistd.h>
 #include <string.h>
 
+
+#define WALL '1'
+#define PLAYER 'P'
+#define EXIT 'E'
+#define COLLECTIBLE 'C'
+#define EMPTY '0'
+
 typedef struct s_data
 {
     void *mlx_ptr;            
     void *win_ptr;            
-    char map[5][14];          
+    char **map;          
     int player_x;             
     int player_y;             
     void *wall_img;           
@@ -27,13 +34,16 @@ typedef struct s_data
     int remainder_colletible;
     int int_front_exit;
     int total_moves;
+    int height;
+    int width;
 } t_data;
 
 void initialize_data(t_data *data);
 void render_map(t_data *data);
 int on_keypress(int keysym, t_data *data);
 int on_destroy(t_data *data);
+void print_map(t_data *data);
 void move_player(t_data *data, int new_x, int new_y);
-int count_collectibles(t_data *data);
-
+void count_collectibles_and_get_positions(t_data *data);
+void print_map(t_data *data);
 #endif // GAME_H

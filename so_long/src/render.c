@@ -3,18 +3,18 @@
 #include "game.h"
 
 void render_map(t_data *data) {
-    for (int y = 0; y < 5; y++) {
-        for (int x = 0; x < 13; x++) {
+    for (int y = 0; y < data->height; y++) {
+        for (int x = 0; x < data->width; x++) {
             void *img_ptr = NULL;
-            if (data->map[y][x] == '1')
+            if (data->map[y][x] == WALL)
                 img_ptr = data->wall_img;
-            else if (data->map[y][x] == '0')
+            else if (data->map[y][x] == EMPTY)
                 img_ptr = data->floor_img;
-            else if (data->map[y][x] == 'P')
+            else if (data->map[y][x] == PLAYER)
                 img_ptr = data->player_img;
-            else if (data->map[y][x] == 'C')
+            else if (data->map[y][x] == COLLECTIBLE)
                 img_ptr = data->collectible_img;
-            else if (data->map[y][x] == 'E')
+            else if (data->map[y][x] == EXIT)
                 img_ptr = data->exit_img;
 
             if (img_ptr)
