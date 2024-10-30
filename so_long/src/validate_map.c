@@ -1,128 +1,86 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
+#include "so_long.h"
 
-#define WALL '1'
-#define PLAYER 'P'
-#define EXIT 'E'
-#define COLLECTIBLE 'C'
-#define EMPTY '0'
-
-// Estrutura de dados para armazenar o mapa
-typedef struct {
-    char **map;
-    int rows;
-    int cols;
-} t_map;
-
-// Verifica se o mapa é retangular
-int is_rectangular(t_map *map) {
+int has_walls(t_data *data) {
     int i = 0;
-    while (i < map->rows) {
-        if (strlen(map->map[i]) != map->cols)
+
+    for (i = 0; i < data->width; i++) {
+        if (data->map[0][i] != WALL || data->map[data->height - 1][i] != WALL) {
             return 0;
-        i++;
+        }
     }
+
+    for (i = 0; i < data->height; i++) {
+        if (data->map[i][0] != WALL || data->map[i][data->width - 1] != WALL) {
+            return 0;
+        }
+    }
+
     return 1;
 }
 
-// Verifica se as bordas do mapa são paredes
-int has_walls(t_map *map) {
-    int i = 0;
-    
-    // Verifica as bordas superior e inferior
-    while (i < map->cols) {
-        if (map->map[0][i] != WALL || map->map[map->rows - 1][i] != WALL)
-            return 0;
-        i++;
-    }
-    
-    i = 0;
-    // Verifica as bordas esquerda e direita
-    while (i < map->rows) {
-        if (map->map[i][0] != WALL || map->map[i][map->cols - 1] != WALL)
-            return 0;
-        i++;
-    }
-    
-    return 1;
-}
-
-// Conta a quantidade de jogadores, saídas e colecionáveis
-int has_required_elements(t_map *map, int *player_count, int *exit_count, int *collectible_count) {
+int has_required_elements(t_data *data, int *player_count, int *exit_count, int *collectible_count) {
     *player_count = 0;
     *exit_count = 0;
     *collectible_count = 0;
-    
-    int i = 0;
-    while (i < map->rows) {
-        int j = 0;
-        while (j < map->cols) {
-            if (map->map[i][j] == PLAYER)
+
+    for (int i = 0; i < data->height; i++) {
+        for (int j = 0; j < data->width; j++) {
+            if (data->map[i][j] == PLAYER)
                 (*player_count)++;
-            else if (map->map[i][j] == EXIT)
+            else if (data->map[i][j] == EXIT)
                 (*exit_count)++;
-            else if (map->map[i][j] == COLLECTIBLE)
+            else if (data->map[i][j] == COLLECTIBLE)
                 (*collectible_count)++;
-            j++;
         }
-        i++;
     }
-    
-    return (*player_count == 1 && *exit_count >= 1 && *collectible_count >= 1);
+
+    return (*player_count == 1 && *exit_count == 1 && *collectible_count >= 1);
 }
 
-// Função para validar o mapa
-int validate_map(t_map *map) {
+int validate_map(t_data *data) {
     int player_count, exit_count, collectible_count;
 
-    if(!map)
-	return (0);
-    if (!is_rectangular(map)) {
-        printf("Erro: O mapa não é retangular.\n");
+    if (!data || !data->map) {
         return 0;
     }
     
-    if (!has_walls(map)) {
+    if (!has_walls(data)) {
         printf("Erro: As bordas do mapa não estão rodeadas de paredes.\n");
         return 0;
     }
     
-    if (!has_required_elements(map, &player_count, &exit_count, &collectible_count)) {
+    if (!has_required_elements(data, &player_count, &exit_count, &collectible_count)) {
         printf("Erro: O mapa deve conter 1 jogador, pelo menos 1 saída e pelo menos 1 colecionável.\n");
         return 0;
     }
     
-    printf("Mapa válido.\n");
     return 1;
 }
 
-// Exemplo de criação de mapa e validação
-int main() {
-    // Exemplo de mapa (deve ser carregado de um arquivo)
-    char *map_data[] = {
-        "11111",
-        "1P0C1",
-        "100E1",
-        "11111"
-    };
-    	if (sizeof(map_data) / sizeof(map_data[0]) == 0) {
-        printf("Erro: O mapa não possui dados.\n");
+int validate_extension(char *extension) {
+    if (strncmp(extension, ".ber", 4) != 0) {
         return 0;
     }
-    t_map map;
-    map.map = map_data;
-    map.rows = 4;
-    map.cols = strlen(map_data[0]);
+    return 1;
+}
 
+int validate_lines(int fd, t_data *data) {
+    char bit;
+    int width = 0;
 
-    // Valida o mapa
-    if (validate_map(&map)) {
-        printf("Mapa passou na validação!\n");
-    } else {
-        printf("Mapa não é válido.\n");
+    while (read(fd, &bit, 1) != 0) {
+        if (bit == '\n') {
+            if (width != data->width) {
+                printf("Error\nFormato do Mapa: ");
+                printf("%d -> %d\n", width, data->width);
+                exit(1);
+            }
+            width = 0;
+        } else {
+            width++;
+        }
     }
 
+    close(fd);
     return 0;
 }

@@ -1,81 +1,93 @@
-#include "game.h"
+#include "so_long.h"
 
-void initialize_map(t_data *data)
-{   
-    int i = 0;
-    int j = 0;
-
+void initialize_map(t_data *data, char *map_path)
+{       	
     data->height = 0;
     data->width = 0;
-    char *map[] = {
-        "1111111111111",
-        "10010000000C1",
-        "10C0011111001",
-        "1PC011E00C001",
-        "1111111111111",
-        NULL
-    };
 
-    while (map[data->height] != NULL)
-        data->height++;
+if (open(map_path, O_RDONLY) > 0 && validate_extension(&map_path[strlen(map_path) - 4]))
+    {
+        display(open(map_path, O_RDONLY), data);
+        validate_lines(open(map_path, O_RDONLY), data);
+        create_map(open(map_path, O_RDONLY), data);
 
-    while (map[0][data->width] != '\0')
-        data->width++;
+    if (!validate_map(data)) 
+    {
+        printf("Mapa não é válido.\n");
+        exit(1);
+    }
+    }
+}
+void create_map(int fd, t_data *data)
+{
+    int i = 0;
+    int j = 0;
+    int bit = 0;
 
     data->map = (char **)malloc((data->height) * sizeof(char *));
     if(!data->map)
         return ;
+   
     while(i < data->height)
     {
         data->map[i] = (char *)malloc((data->width) * sizeof(char));
-         if(!data->map[i])
+        if(!data->map[i])
             return ;
-        
+        i++;
+    }
+
+    i = 0;
+    while(i < data->height)
+    {
         j = 0;
-        while(j < data->width)
-        {
-            data->map[i][j] = map[i][j];
+            while (read(fd, &bit, 1) > 0) {
+            if(bit == '\n')
+                break;
+            if (bit != '0' && bit != 'E' && bit != 'C' && bit != 'P' && bit != '1')
+            {
+                free_map(data);
+                printf("Há algum objeto inválido no mapa: '%c'\n", bit);
+                exit(1);
+            }
+            data->map[i][j] = bit;
             j++;
         }
         i++;
     }
+    close(fd);
 }
 
-void count_collectibles_and_get_positions(t_data *data) {
-    int y = 0;
-    while (y < data->height)
-    {
-        int x = 0;
-        while (x < data->width)
-        {
-            if (data->map[y][x] == 'C')
-                data->remainder_colletible++;
-            else if(data->map[y][x] == 'P')
-            {
-                data->player_x = x;
-                data->player_y = y;
-            }
-            x++;
-        }
-        y++;
-    }
-}
-
-void initialize_data(t_data *data)
+void	display(int fd, t_data *data)
 {
-    initialize_map(data);
-    data->remainder_colletible = 0;
-    data->int_front_exit = 0;
-    data->total_moves = 0;
-    count_collectibles_and_get_positions(data);
+	char	bit;
+	int		width;
+	int		height;
+	int		fline;
 
+	width = 0;
+	height = 0;
+	fline = 0;
+	while (read(fd, &bit, 1) != 0)
+	{
+		if (bit != '\n')
+		{
+			if (fline == 0)
+				width++;
+		}
+		else
+		{
+			height++;
+			fline = 1;
+		}
+	}
+	data->width = width;
+	data->height = height;
+	close(fd);
 }
-
-
 
 void move_player(t_data *data, int new_x, int new_y)
 {
-    if (new_x < 0 || new_y < 0 || new_y >= 5 || new_x >= 13)
+    if (new_x < 0 || new_y < 0 || new_y >= data->height || new_x >= data->width)
     {
         printf("Move out of bounds\n");
         return;
@@ -98,7 +110,7 @@ void move_player(t_data *data, int new_x, int new_y)
         else if(data->map[new_y][new_x] == 'E')
         {
             if(data->remainder_colletible == 0)
-                end_game(data);
+                on_destroy(data);
             data->int_front_exit = 1;
             data->map[data->player_y][data->player_x] = '0';
 
@@ -118,13 +130,26 @@ int on_keypress(int keysym, t_data *data)
     if (keysym == XK_Escape)
         on_destroy(data);
     else if (keysym == XK_w || keysym == XK_Up)
+    {
+        data->player_view_direction = RIGHT;
         move_player(data, data->player_x, data->player_y - 1);
+    }
     else if (keysym == XK_s || keysym == XK_Down)
+    {
+        data->player_view_direction = FRONT;
         move_player(data, data->player_x, data->player_y + 1);
+    }
     else if (keysym == XK_a || keysym == XK_Left)
+    {
+        data->player_view_direction = LEFT;
         move_player(data, data->player_x - 1, data->player_y);
+
+    }
     else if (keysym == XK_d || keysym == XK_Right)
+    {
+        data->player_view_direction = RIGHT;
         move_player(data, data->player_x + 1, data->player_y);
+    }
     return (0);
 }
 

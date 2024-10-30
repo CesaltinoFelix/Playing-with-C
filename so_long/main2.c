@@ -226,12 +226,12 @@ int main(void)
     // Carrega as imagens e verifica se foram carregadas corretamente
     data.wall_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/wall.xpm", &width, &height);
     data.floor_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/floor.xpm", &width, &height);
-    data.player_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/player.xpm", &width, &height);
+    data.player_right_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/player.xpm", &width, &height);
     data.collectible_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/collectible.xpm", &width, &height);
     data.exit_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/exit.xpm", &width, &height);
 
     // Verifica se todas as imagens foram carregadas corretamente
-    if (!data.wall_img || !data.floor_img || !data.player_img || !data.collectible_img || !data.exit_img)
+    if (!data.wall_img || !data.floor_img || !data.player_right_img || !data.collectible_img || !data.exit_img)
     {
         fprintf(stderr, "Erro ao carregar imagens\n"); // Mensagem de erro
         on_destroy(&data); // Libera recursos e sai do programa

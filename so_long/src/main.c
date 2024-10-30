@@ -1,9 +1,10 @@
-#include "game.h"
+#include "so_long.h"
 
-int main(void)
+int main(int argc, char *argv[])
 {
     t_data data;
-    initialize_data(&data);
+    (void)argc;
+    initialize_data(&data, argv[1]);
    
 
     int width, height; 
@@ -17,13 +18,16 @@ int main(void)
 
     data.wall_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/wall.xpm", &width, &height);
     data.floor_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/floor.xpm", &width, &height);
-    data.player_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/player.xpm", &width, &height);
+    data.player_right_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/player_right.xpm", &width, &height);
+    data.player_left_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/player_left.xpm", &width, &height);
+    data.player_front_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/player_front.xpm", &width, &height);
     data.collectible_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/collectible.xpm", &width, &height);
     data.exit_img = mlx_xpm_file_to_image(data.mlx_ptr, "./assets/exit.xpm", &width, &height);
 
-    if (!data.wall_img || !data.floor_img || !data.player_img || !data.collectible_img || !data.exit_img)
+    if (!data.wall_img || !data.floor_img || !data.player_right_img || !data.player_left_img || !data.player_front_img || !data.collectible_img || !data.exit_img)
     {
         fprintf(stderr, "Erro ao carregar imagens\n");
+        //LIPAR BEM O VAZAMENTO DE MEMORIA QUANDO AS IMAGENS NAO SAO CARREGADAS COM SUCESSO
         on_destroy(&data);
     }
 
