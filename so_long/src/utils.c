@@ -6,7 +6,7 @@
 /*   By: cefelix <cefelix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 10:37:29 by cefelix           #+#    #+#             */
-/*   Updated: 2024/10/31 14:51:56 by cefelix          ###   ########.fr       */
+/*   Updated: 2024/11/01 10:57:17 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,59 @@ void	count_collectibles_and_get_positions(t_data *data)
 		}
 		y++;
 	}
+}
+
+void	flood_fill(char **matriz, int x, int y, int *found)
+{
+	if (matriz[x][y] == 'P')
+	{
+		*found = 1;
+		return ;
+	}
+	if (matriz[x][y] == '1' || matriz[x][y] == 'V')
+		return ;
+	matriz[x][y] = 'V';
+	flood_fill(matriz, x + 1, y, found);
+	flood_fill(matriz, x - 1, y, found);
+	flood_fill(matriz, x, y + 1, found);
+	flood_fill(matriz, x, y - 1, found);
+}
+
+int	check_flood_fill(char **map_copy, char target, t_data *data)
+{
+	int	i;
+	int	j;
+	int	found;
+
+	i = 0;
+	while (i < data->height)
+	{
+		j = 0;
+		while (j < data->width)
+		{
+			if (map_copy[i][j] == target)
+			{
+				found = 0;
+				flood_fill(map_copy, i, j, &found);
+				if (found == 0)
+					return (0);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	is_path_valid(char **map, char target, t_data *data)
+{
+	char	**map_copy;
+	int		is_valid;
+
+	map_copy = copy_map(map, data->height, data->width);
+	if (!map_copy)
+		return (0);
+	is_valid = check_flood_fill(map_copy, target, data);
+	free_map_copy(map_copy, data->height);
+	return (is_valid);
 }

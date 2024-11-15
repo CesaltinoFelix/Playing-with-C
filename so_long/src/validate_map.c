@@ -6,7 +6,7 @@
 /*   By: cefelix <cefelix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 11:56:34 by cefelix           #+#    #+#             */
-/*   Updated: 2024/10/31 14:57:18 by cefelix          ###   ########.fr       */
+/*   Updated: 2024/11/03 19:55:45 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	has_walls(t_data *data)
 {
 	int	i;
 
+	if (data->height <= 0 || data->width <= 0)
+		return (0);
 	i = 0;
 	while (i < data->width)
 	{
@@ -71,12 +73,14 @@ int	validate_map(t_data *data)
 		return (0);
 	if (!has_walls(data))
 	{
+		free_map(data);
 		ft_printf("Erro: As bordas do mapa não estão rodeadas de paredes.\n");
 		return (0);
 	}
 	if (!has_required_elements(data, &player_count, \
 	&exit_count, &collectible_count))
 	{
+		free_map(data);
 		ft_printf("Erro: O mapa deve conter 1 jogador, pelo menos 1 saída e ");
 		ft_printf("pelo menos 1 colecionável.\n");
 		return (0);

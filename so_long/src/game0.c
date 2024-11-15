@@ -6,7 +6,7 @@
 /*   By: cefelix <cefelix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 11:19:06 by cefelix           #+#    #+#             */
-/*   Updated: 2024/10/31 14:39:59 by cefelix          ###   ########.fr       */
+/*   Updated: 2024/11/01 10:57:30 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,22 @@ void	initialize_map(t_data *data, char *map_path)
 			ft_printf("Mapa não é válido.\n");
 			exit(1);
 		}
+		is_playable(data);
 	}
 	else
 	{
 		ft_printf("Error: Invalid file.\n");
+		exit(1);
+	}
+}
+
+void	is_playable(t_data *data)
+{
+	if (!is_path_valid(data->map, 'C', data) || \
+	!is_path_valid(data->map, 'E', data))
+	{
+		free_map(data);
+		ft_printf("Mapa inválido\n");
 		exit(1);
 	}
 }

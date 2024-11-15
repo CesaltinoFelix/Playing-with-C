@@ -6,7 +6,7 @@
 /*   By: cefelix <cefelix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 09:02:42 by cefelix           #+#    #+#             */
-/*   Updated: 2024/10/31 14:30:28 by cefelix          ###   ########.fr       */
+/*   Updated: 2024/11/01 11:49:26 by cefelix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char *argv[])
 	t_data	data;
 
 	if (argc == 1)
-		return (ft_printf("Error: ./so_long <map_path/*.ber>"), 1);
+		return (ft_printf("Error: ./so_long <map_path/*.ber>\n"), 1);
 	initialize_data(&data, argv[1]);
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
