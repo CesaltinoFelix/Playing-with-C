@@ -3,6 +3,9 @@ NAME = libft.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
+PRINTF = printf/libftprintf.a
+DIR = printf
+
 OBJS = ft_isalpha.o \
 ft_memchr.o \
 ft_putchar_fd.o \
@@ -51,16 +54,22 @@ ft_pid_error.o
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(PRINTF)
 	ar rcs $(NAME) $(OBJS)
 
 %.o: %.c libft.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
+
+$(PRINTF) : 
+	$(MAKE) -C $(DIR)
+
 clean:
+	$(MAKE) clean -C $(DIR)
 	rm -f $(OBJS)
 
 fclean: clean
+	$(MAKE) fclean -C $(DIR)
 	rm -f $(NAME)
 
 re: fclean all
